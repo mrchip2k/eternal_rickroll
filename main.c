@@ -44,8 +44,8 @@ enum e_state pick_random(int count, ...) {
 }
 
 //the state machine
-int god_demanded_this(enum e_state state, struct s_stats *stats) {
-	for (unsigned int i = 0; i < 69420; i++) {
+int god_demanded_this(enum e_state state, struct s_stats *stats, unsigned long lines_to_generate) {
+	while (stats->nevers <= lines_to_generate) {
 		switch (state)
 		{
 		case e_state_goodbye:
@@ -65,7 +65,8 @@ int god_demanded_this(enum e_state state, struct s_stats *stats) {
 			state = pick_random(1, e_state_and);
 			break;
 		case e_state_never:
-			printf("\nNever");
+			if (stats->nevers < lines_to_generate)
+				printf("\nNever");
 			state = pick_random(1, e_state_gonna);
 			stats->nevers++;
 			break;
@@ -145,14 +146,25 @@ int god_demanded_this(enum e_state state, struct s_stats *stats) {
 	return (0);
 }
 
-int main() {
+int main(int argc, char **argv) {
+	unsigned long lines_to_generate = 69420;
+	if (argc > 2) {
+		printf("Bad argument count.\n");
+		printf("Expected:\n");
+		printf("No arguments (generate default amount of lines, 69420)\n");
+		printf("1 argument (generate this amount of lines)\n");
+		return (1);
+	}
+	if (argc == 2)
+		lines_to_generate = atoi(argv[1]);
+	
 	struct s_stats stats = {
 		.words = 0,
 		.nevers = 0,
 	};
 	
 	srand(time(NULL)); // init RNG
-	int err = god_demanded_this(e_state_never, &stats);
+	int err = god_demanded_this(e_state_never, &stats, lines_to_generate);
 	
 	if (err) 
 		printf("\n---/!\\ ERROR: RICKROLL MACHINE BROKE.---\n");
