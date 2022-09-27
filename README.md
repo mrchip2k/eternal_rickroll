@@ -10,9 +10,11 @@ After the generated lines, stats are displayed.
 
 # Usage
 
-```bash
+```txt
 $> ./eternal_rickroll
-(Program generates 69420 lines)
+     (Program generates 69420 lines)
 $> ./eternal_rickroll 10
-(Program generates 10 lines) 
+     (Program generates 10 lines)
+$> ./eternal_rickroll -1
+     (ETERNAL MODE)
 ```

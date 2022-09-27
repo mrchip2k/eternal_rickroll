@@ -25,8 +25,8 @@ enum e_state {
 };
 
 struct s_stats {
-	unsigned long words;
-	unsigned long nevers;
+	long words;
+	long nevers;
 };
 
 enum e_state pick_random(int count, ...) {
@@ -44,8 +44,11 @@ enum e_state pick_random(int count, ...) {
 }
 
 //the state machine
-int god_demanded_this(enum e_state state, struct s_stats *stats, unsigned long lines_to_generate) {
-	while (stats->nevers <= lines_to_generate) {
+int god_demanded_this(enum e_state state, struct s_stats *stats, long lines_to_generate) {
+	while (
+		(lines_to_generate < 0)
+		|| (stats->nevers <= lines_to_generate)
+	) {
 		switch (state)
 		{
 		case e_state_goodbye:
@@ -65,10 +68,14 @@ int god_demanded_this(enum e_state state, struct s_stats *stats, unsigned long l
 			state = pick_random(1, e_state_and);
 			break;
 		case e_state_never:
-			if (stats->nevers < lines_to_generate)
-				printf("\nNever");
-			state = pick_random(1, e_state_gonna);
 			stats->nevers++;
+			if (
+				(lines_to_generate < 0)
+				|| (stats->nevers <= lines_to_generate)
+			) {
+				printf("\nNever");
+			}
+			state = pick_random(1, e_state_gonna);
 			break;
 		case e_state_gonna:
 			printf(" gonna");
@@ -143,11 +150,12 @@ int god_demanded_this(enum e_state state, struct s_stats *stats, unsigned long l
 		}
 		stats->words++;
 	}
+	stats->nevers--;
 	return (0);
 }
 
 int main(int argc, char **argv) {
-	unsigned long lines_to_generate = 69420;
+	long lines_to_generate = 69420;
 	if (argc > 2) {
 		printf("Bad argument count.\n");
 		printf("Expected:\n");
