@@ -39,7 +39,7 @@ enum e_state pick_random(int count, ...) {
 	{
 		result = va_arg(list, enum e_state);
 		i++;
-	} while (i < randy);
+	} while (i <= randy);
 	return (result);
 }
 
