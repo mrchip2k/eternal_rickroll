@@ -160,7 +160,7 @@ int main(int argc, char **argv) {
 		printf("Bad argument count.\n");
 		printf("Expected:\n");
 		printf("No arguments (generate default amount of lines, 69420)\n");
-		printf("1 argument (generate this amount of lines)\n");
+		printf("1 argument (generate this amount of lines OR negative number for infinity)\n");
 		return (1);
 	}
 	if (argc == 2)
