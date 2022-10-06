@@ -11,19 +11,18 @@ After the generated lines, stats are displayed.
 # Usage
 
 ```txt
-$> ./eternal_rickroll
+$> eternal_rickroll
      (Program generates 69420 lines, and stats.)
-$> ./eternal_rickroll 10
+$> eternal_rickroll 10
      (Program generates 10 lines, and stats.)
-$> ./eternal_rickroll -1
+$> eternal_rickroll -1
      (ETERNAL MODE)
 ```
 
 # Output example
 ```
-$> ./eternal_rickroll 10 > EXAMPLE.txt
+$> eternal_rickroll 10 > EXAMPLE.txt
 $> cat EXAMPLE.txt
-
 Never gonna say goodbye
 Never gonna tell a lie and desert you cry
 Never gonna let you
