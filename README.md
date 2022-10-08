@@ -44,6 +44,6 @@ $>
 
 # Notes
 
-The `Words` stat won't give the same result as reading the string result, for instance using the `wc` shell command.
+The `Words` stat won't give the same result as reading the text result, for instance using the `wc` shell command.
 
-It counts the transitions between blocks in the image, therefore the block "a lie" counts as 1.
+It counts the transitions between blocks in the image, therefore the block "a lie" counts as 1 instead of 2.
