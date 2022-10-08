@@ -8,6 +8,8 @@ It will stop based on line count.
 
 After the generated lines, stats are displayed.
 
+The same program has been rewritten in multiple languages, information on each one can be found in their READMEs. Although they all try to give the same output and behaviour, they might be coded with different approaches.
+
 # Usage
 
 ```txt
@@ -35,7 +37,7 @@ Never gonna run around and desert you
 Never gonna say goodbye
 ---RICK SUCCESSFULLY ROLLED.---
 [STATS]
+Lines: 10
 Words: 53
-'Never': 10
 $>
 ```

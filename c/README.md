@@ -15,5 +15,15 @@ _Resulting executable:_
 $> ./eternal_rickroll
 ```
 
-## Other notes
-Currently, this outputs 1 empty line before the first generated rickroll line.
+## Status
+- [x] No args default line count
+- [x] Handle 0 or positive line count
+- [x] Infinite mode
+- [x] Bad argument count help message
+- [x] Error message
+- [ ] No extra newlines or spaces
+	- Has extra newline at start
+- [ ] Stats: lines and words
+	- Complete but non standard names and order
+- [ ] Stats: count each word
+	- [ ] only display words that have been used
