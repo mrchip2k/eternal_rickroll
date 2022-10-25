@@ -31,10 +31,10 @@ func main() {
 	rand.Seed(time.Now().UnixNano())
 	initStates()
 
-	switch {
-	case len(args) == 0:
+	switch len(args){
+	case 0:
 		roll(69420, false)
-	case len(args) == 1:
+	case 1:
 		requestedRolls, err := strconv.Atoi(args[0])
 		if err != nil {
 			fmt.Fprintln(os.Stderr, "Argument 1 couldn't be parsed as an integer number.")
