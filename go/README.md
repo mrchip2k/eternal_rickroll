@@ -3,17 +3,17 @@
 ## Running
 
 ```
-$> go run .
+$> go run . (argument goes here)
 ```
 
 ## Status
-- [ ] No args default line count
-- [ ] Handle 0 or positive line count
-- [ ] Infinite mode
-- [ ] Bad argument count help message
-- [ ] Error message
-	- Could be added whenever accessing tables, in case of a bad index, but if i need these guarantees i should just be using a statically typed language. Won't implement, since the program does appear to work correctly and this would clutter the code.
-- [ ] No extra newlines or spaces
-- [ ] Stats: lines and words
-- [ ] Stats: count each word
-	- [ ] only display words that have been used
+- [x] No args default line count
+- [x] Handle 0 or positive line count
+- [x] Infinite mode
+- Errors
+	- [x] Argument count bigger than 1
+	- [x] First argument can't be parsed as int
+- [x] No extra newlines or spaces
+- [x] Stats: lines and words
+- [x] Stats: count each word
+	- [x] only display words that have been used

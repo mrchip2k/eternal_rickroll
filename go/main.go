@@ -9,8 +9,10 @@ import (
 )
 
 var (
-	args  []string
-	lines int
+	args           []string
+	lines          int
+	statWordsCount int
+	statWordsEach  map[string]int = make(map[string]int)
 )
 
 type State struct {
@@ -35,7 +37,7 @@ func main() {
 	case len(args) == 1:
 		requestedRolls, err := strconv.Atoi(args[0])
 		if err != nil {
-			fmt.Fprintln(os.Stderr, "Argument 1 couldnt be parsed as an integer number.")
+			fmt.Fprintln(os.Stderr, "Argument 1 couldn't be parsed as an integer number.")
 			os.Exit(1)
 		} else {
 			if requestedRolls < 0 {
