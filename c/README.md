@@ -20,7 +20,9 @@ $> ./eternal_rickroll
 - [x] Handle 0 or positive line count
 - [x] Infinite mode
 - [x] Bad argument count help message
-- [x] Error message
+- Errors
+	- [x] Argument count bigger than 1
+	- [ ] First argument can't be parsed as int
 - [ ] No extra newlines or spaces
 	- Has extra newline at start
 - [ ] Stats: lines and words
