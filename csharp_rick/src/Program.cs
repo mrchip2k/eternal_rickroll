@@ -32,7 +32,9 @@
 					lineBuffer += ' ';
 				
 				stats.allWordsCount++;
-				//TODO: this word counter
+				if (!stats.eachWordCount.ContainsKey(res.Text))
+					stats.eachWordCount.Add(res.Text, 0);
+				stats.eachWordCount[res.Text]++;
 				
 				current = res.Next;
 			}

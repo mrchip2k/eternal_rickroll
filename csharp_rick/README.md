@@ -3,19 +3,16 @@
 ## How to run
 
 ```
-$> dotnet run
+$> dotnet run (program arguments go here)
 ```
 
 ## Status
-- [ ] No args default line count
-- [ ] Handle 0 or positive line count
-- [ ] Infinite mode
+- [x] No args default line count
+- [x] Handle 0 or positive line count
+- [x] Infinite mode
 - Errors
-	- [ ] Argument count bigger than 1
-	- [ ] First argument can't be parsed as int
-- [ ] No extra newlines or spaces
-	- Has extra newline at start
-- [ ] Stats: lines and words
-	- Complete but non standard names and order
-- [ ] Stats: count each word
-	- [ ] only display words that have been used
+	- [x] Argument count bigger than 1
+	- [x] First argument can't be parsed as int
+- [x] No extra newlines or spaces
+- [x] Stats: lines and words
+- [x] Stats: count each word

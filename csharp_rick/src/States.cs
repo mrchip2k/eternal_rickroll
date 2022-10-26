@@ -11,10 +11,21 @@ namespace State{
 
 	abstract class SimpleBase : Base{
 		protected Returns runSimple(Type next, string text)
-		{
+		{	/*
+			Function is more complicated than it needs to be, the final return could be sufficient.
+			However, c# warns about possible nulls, coming from CreateInstance.
+			This could happen if:
+			- runSimple is called with "null" explicitly
+			- MultiBase random logic had a bug, or bad parameters
+			both of which are unlikely. But just suppressing the error feels wrong.
+			*/
+			
+			object? next_NullableObj = Activator.CreateInstance(next);
+			// Cast later, since the cast would warn about possible null.
+			Base next_Base = (Base)(next_NullableObj ?? new SNever());
 			return new Returns()
 			{
-				Next = (Base)Activator.CreateInstance(next),
+				Next = next_Base,
 				Text = text
 			};
 		}

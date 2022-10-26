@@ -2,6 +2,7 @@ class Stats
 {
 	public int lines;
 	public int allWordsCount;
+	public Dictionary<string, int> eachWordCount = new Dictionary<string, int>();
 	
 	public void print()
 	{
@@ -9,6 +10,9 @@ class Stats
 		Console.WriteLine("[STATS]");
 		Console.WriteLine($"Lines: {lines}");
 		Console.WriteLine($"Words: {allWordsCount}");
-		//TODO: each word
+		foreach(KeyValuePair<string, int> entry in eachWordCount)
+		{
+			Console.WriteLine($"{entry.Key}: {entry.Value}");
+		}
 	}
 }
