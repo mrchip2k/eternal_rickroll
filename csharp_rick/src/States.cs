@@ -1,302 +1,202 @@
-struct StateReturns
-{
-	public StateBase Next;
-	public string Text;
-}
-
-abstract class StateBase {
-	public abstract StateReturns runState();
-}
-
-//// All states ////
-
-class SGoodbye : StateBase
-{
-	public override StateReturns runState()
+namespace State{
+	struct Returns
 	{
-		return new StateReturns()
-		{
-			Next = new SNever(),
-			Text = "goodbye"
-		};
+		public Base Next;
+		public string Text;
 	}
-}
 
-class SSay: StateBase
-{
-	public override StateReturns runState()
-	{
-		return new StateReturns()
-		{
-			Next = new SGoodbye(),
-			Text = "say"
-		};
+	abstract class Base {
+		public abstract Returns runState();
 	}
-}
 
-class SRun: StateBase
-{
-	public override StateReturns runState()
-	{
-		return new StateReturns()
+	abstract class SimpleBase : Base{
+		protected Returns runSimple(Type next, string text)
 		{
-			Next = new SAround(),
-			Text = "run"
-		};
-	}
-}
-
-class SAround: StateBase
-{
-	public override StateReturns runState()
-	{
-		return new StateReturns()
-		{
-			Next = new SAnd(),
-			Text = "around"
-		};
-	}
-}
-
-class SNever: StateBase
-{
-	public override StateReturns runState()
-	{
-		return new StateReturns()
-		{
-			Next = new SGonna(),
-			Text = "Never"
-		};
-	}
-}
-
-class SGonna: StateBase
-{
-	public override StateReturns runState()
-	{
-		const string text = "gonna";
-		switch (Program.rnd.Next(6))
-		{
-			case 0:
-				return new StateReturns()
-				{
-					Next = new SSay(),
-					Text = text
-				};
-			case 1:
-				return new StateReturns()
-				{
-					Next = new SRun(),
-					Text = text
-				};
-			case 2:
-				return new StateReturns()
-				{
-					Next = new STell(),
-					Text = text
-				};
-			case 3:
-				return new StateReturns()
-				{
-					Next = new SLet(),
-					Text = text
-				};
-			case 4:
-				return new StateReturns()
-				{
-					Next = new SGive(),
-					Text = text
-				};
-			case 5:
-				return new StateReturns()
-				{
-					Next = new SMake(),
-					Text = text
-				};
-			default:
-				throw new Exception("oops");
+			return new Returns()
+			{
+				Next = (Base)Activator.CreateInstance(next),
+				Text = text
+			};
 		}
 	}
-}
 
-class STell: StateBase
-{
-	public override StateReturns runState()
-	{
-		return new StateReturns()
+	abstract class MultiBase : SimpleBase {
+		protected Returns runMulti(Type[] nextList, string text)
 		{
-			Next = new SALie(),
-			Text = "tell"
-		};
-	}
-}
-
-class SALie: StateBase
-{
-	public override StateReturns runState()
-	{
-		return new StateReturns()
-		{
-			Next = new SAnd(),
-			Text = "a lie"
-		};
-	}
-}
-
-class SDown: StateBase
-{
-	public override StateReturns runState()
-	{
-		return new StateReturns()
-		{
-			Next = new SNever(),
-			Text = "down"
-		};
-	}
-}
-
-class SCry: StateBase
-{
-	public override StateReturns runState()
-	{
-		return new StateReturns()
-		{
-			Next = new SNever(),
-			Text = "cry"
-		};
-	}
-}
-
-class SUp: StateBase
-{
-	public override StateReturns runState()
-	{
-		return new StateReturns()
-		{
-			Next = new SNever(),
-			Text = "up"
-		};
-	}
-}
-
-class SYou: StateBase
-{
-	public override StateReturns runState()
-	{
-		const string text = "you";
-		switch (Program.rnd.Next(4))
-		{
-			case 0:
-				return new StateReturns()
-				{
-					Next = new SNever(),
-					Text = text
-				};
-			case 1:
-				return new StateReturns()
-				{
-					Next = new SUp(),
-					Text = text
-				};
-			case 2:
-				return new StateReturns()
-				{
-					Next = new SCry(),
-					Text = text
-				};
-			case 3:
-				return new StateReturns()
-				{
-					Next = new SDown(),
-					Text = text
-				};
-			default:
-				throw new Exception("oops");
+			Type result = nextList[
+				Program.rnd.Next(nextList.Count())
+			];
+			return runSimple(result, text);
 		}
 	}
-}
 
-class SLet: StateBase
-{
-	public override StateReturns runState()
-	{
-		return new StateReturns()
-		{
-			Next = new SYou(),
-			Text = "let"
-		};
-	}
-}
+	//// All states ////
 
-class SGive: StateBase
-{
-	public override StateReturns runState()
+	class SGoodbye : SimpleBase
 	{
-		return new StateReturns()
+		public override Returns runState()
 		{
-			Next = new SYou(),
-			Text = "give"
-		};
-	}
-}
-
-class SMake: StateBase
-{
-	public override StateReturns runState()
-	{
-		return new StateReturns()
-		{
-			Next = new SYou(),
-			Text = "make"
-		};
-	}
-}
-
-class SAnd: StateBase
-{
-	public override StateReturns runState()
-	{
-		const string text = "and";
-		switch (Program.rnd.Next(2))
-		{
-			case 0:
-				return new StateReturns()
-				{
-					Next = new SDesert(),
-					Text = text
-				};
-			case 1:
-				return new StateReturns()
-				{
-					Next = new SHurt(),
-					Text = text
-				};
-			default:
-				throw new Exception("oops");
+			return runSimple(typeof(SNever), "goodbye");
 		}
 	}
-}
 
-class SDesert: StateBase
-{
-	public override StateReturns runState()
+	class SSay: SimpleBase
 	{
-		return new StateReturns()
+		public override Returns runState()
 		{
-			Next = new SYou(),
-			Text = "desert"
-		};
+			return runSimple(typeof(SGoodbye), "say");
+		}
 	}
-}
 
-class SHurt: StateBase
-{
-	public override StateReturns runState()
+	class SRun: SimpleBase
 	{
-		return new StateReturns()
+		public override Returns runState()
 		{
-			Next = new SYou(),
-			Text = "hurt"
-		};
+			return runSimple(typeof(SAround), "run");
+		}
+	}
+
+	class SAround: SimpleBase
+	{
+		public override Returns runState()
+		{
+			return runSimple(typeof(SAnd), "around");
+		}
+	}
+
+	class SNever: SimpleBase
+	{
+		public override Returns runState()
+		{
+			return runSimple(typeof(SGonna), "Never");
+		}
+	}
+
+	class SGonna: MultiBase
+	{
+		public override Returns runState()
+		{
+			return runMulti(
+				nextList: new Type[]{
+					typeof(SSay),
+					typeof(SRun),
+					typeof(STell),
+					typeof(SLet),
+					typeof(SGive),
+					typeof(SMake)
+				}, 
+				text: "gonna"
+			);
+		}
+	}
+
+	class STell: SimpleBase
+	{
+		public override Returns runState()
+		{
+			return runSimple(typeof(SALie), "tell");
+		}
+	}
+
+	class SALie: SimpleBase
+	{
+		public override Returns runState()
+		{
+			return runSimple(typeof(SAnd), "a lie");
+		}
+	}
+
+	class SDown: SimpleBase
+	{
+		public override Returns runState()
+		{
+			return runSimple(typeof(SNever), "down");
+		}
+	}
+
+	class SCry: SimpleBase
+	{
+		public override Returns runState()
+		{
+			return runSimple(typeof(SNever), "cry");
+		}
+	}
+
+	class SUp: SimpleBase
+	{
+		public override Returns runState()
+		{
+			return runSimple(typeof(SNever), "up");
+		}
+	}
+
+	class SYou: MultiBase
+	{
+		public override Returns runState()
+		{
+			return runMulti(
+				nextList: new Type[]{
+					typeof(SNever),
+					typeof(SUp),
+					typeof(SCry),
+					typeof(SDown)
+				}, 
+				text: "you"
+			);
+		}
+	}
+
+	class SLet: SimpleBase
+	{
+		public override Returns runState()
+		{
+			return runSimple(typeof(SYou), "let");
+		}
+	}
+
+	class SGive: SimpleBase
+	{
+		public override Returns runState()
+		{
+			return runSimple(typeof(SYou), "give");
+		}
+	}
+
+	class SMake: SimpleBase
+	{
+		public override Returns runState()
+		{
+			return runSimple(typeof(SYou), "make");
+		}
+	}
+
+	class SAnd: MultiBase
+	{
+		public override Returns runState()
+		{
+			return runMulti(
+				nextList: new Type[]{
+					typeof(SDesert),
+					typeof(SHurt)
+				}, 
+				text: "and"
+			);
+		}
+	}
+
+	class SDesert: SimpleBase
+	{
+		public override Returns runState()
+		{
+			return runSimple(typeof(SYou), "desert");
+		}
+	}
+
+	class SHurt: SimpleBase
+	{
+		public override Returns runState()
+		{
+			return runSimple(typeof(SYou), "hurt");
+		}
 	}
 }
